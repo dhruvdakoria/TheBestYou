@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import {
   getWorkout,
   updateWorkout,
@@ -24,6 +25,14 @@ import {
 } from "lucide-react";
 import DatePicker from "@/components/date-picker";
 import WorkoutFormWrapper from "@/components/workout-form-wrapper";
+
+// Define the Exercise interface
+interface Exercise {
+  id?: string;
+  name: string;
+  sets: any[];
+  weight?: string;
+}
 
 export default async function WorkoutDetailPage({
   params,
@@ -135,7 +144,7 @@ export default async function WorkoutDetailPage({
               <WorkoutFormWrapper
                 initialData={{
                   name: workout.name,
-                  exercises: workout.exercises.map((ex) => ({
+                  exercises: workout.exercises.map((ex: Exercise) => ({
                     id: ex.id,
                     name: ex.name,
                     sets: ex.sets,

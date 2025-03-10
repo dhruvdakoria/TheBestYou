@@ -25,6 +25,14 @@ import {
 import { Input } from "@/components/ui/input";
 import WorkoutTemplateCard from "@/components/workout-template-card";
 
+// Define the Exercise interface
+interface Exercise {
+  id?: string;
+  name: string;
+  sets: any[];
+  weight?: string;
+}
+
 export default async function WorkoutsPage() {
   const supabase = await createClient();
 
@@ -221,7 +229,7 @@ export default async function WorkoutsPage() {
                       <div className="p-4 bg-background">
                         <h4 className="text-sm font-medium mb-2">Exercises</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                          {workout.exercises.map((exercise, index) => (
+                          {workout.exercises.map((exercise: Exercise, index: number) => (
                             <div
                               key={`${workout.id}-${index}`}
                               className="flex items-center gap-2 p-2 rounded-md bg-secondary/20"

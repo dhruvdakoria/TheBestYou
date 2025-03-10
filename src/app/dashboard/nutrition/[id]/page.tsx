@@ -13,6 +13,17 @@ import { getMeal, updateMeal, deleteMeal } from "@/app/actions/meal-actions";
 import { Utensils, ArrowLeft, Clock, Calendar, Trash2 } from "lucide-react";
 import MealForm from "@/components/meal-form";
 
+// Define the Food interface
+interface Food {
+  id?: string;
+  name: string;
+  portion: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
+
 export default async function MealDetailPage({
   params,
 }: {
@@ -105,7 +116,7 @@ export default async function MealDetailPage({
                 initialData={{
                   type: meal.type,
                   time: meal.time,
-                  foods: meal.foods.map((food) => ({
+                  foods: meal.foods.map((food: Food) => ({
                     id: food.id,
                     name: food.name,
                     portion: food.portion,

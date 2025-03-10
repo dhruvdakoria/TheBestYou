@@ -12,6 +12,26 @@ import {
 import ProgressChart from "@/components/progress-chart";
 import { Dumbbell, ArrowUpRight } from "lucide-react";
 
+// Define the interfaces
+interface ExerciseSet {
+  id?: string;
+  reps: string;
+  weight: string;
+}
+
+interface Exercise {
+  id?: string;
+  name: string;
+  sets: ExerciseSet[];
+  weight?: string;
+}
+
+interface Workout {
+  id: string;
+  date: string;
+  exercises: Exercise[];
+}
+
 export default async function WorkoutProgressPage() {
   const supabase = await createClient();
 
@@ -29,16 +49,16 @@ export default async function WorkoutProgressPage() {
   // Extract exercise data for progress charts
   const exerciseData: Record<string, { date: string; value: number }[]> = {};
 
-  workouts.forEach((workout) => {
+  workouts.forEach((workout: Workout) => {
     const workoutDate = new Date(workout.date).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
     });
 
-    workout.exercises.forEach((exercise) => {
+    workout.exercises.forEach((exercise: Exercise) => {
       // Find the maximum weight used for this exercise in this workout
       let maxWeight = 0;
-      exercise.sets.forEach((set) => {
+      exercise.sets.forEach((set: ExerciseSet) => {
         const weight = parseFloat(set.weight) || 0;
         if (weight > maxWeight) maxWeight = weight;
       });

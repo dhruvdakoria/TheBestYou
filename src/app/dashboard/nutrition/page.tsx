@@ -26,6 +26,17 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
+// Define the Food interface
+interface Food {
+  id?: string;
+  name: string;
+  portion: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
+
 export default async function NutritionPage() {
   const supabase = await createClient();
 
@@ -273,7 +284,7 @@ export default async function NutritionPage() {
                       </div>
 
                       <div className="space-y-2">
-                        {meal.foods.map((food, index) => (
+                        {meal.foods.map((food: Food, index: number) => (
                           <div
                             key={index}
                             className="flex justify-between items-center p-2 rounded-md hover:bg-secondary/20 transition-colors"
